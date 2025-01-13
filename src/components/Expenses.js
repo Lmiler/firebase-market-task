@@ -14,13 +14,12 @@ function Expenses() {
         const jsonData = await response.json();
         setCards(jsonData.data);
 
-        // Determine the maximum price from the fetched cards
         const prices = jsonData.data.map(
             (item) => item.cardmarket?.prices?.averageSellPrice || 0
         );
         const highestPrice = Math.max(...prices);
         setMaxPrice(highestPrice);
-        setSelectedPrice(highestPrice); // Default to the highest price
+        setSelectedPrice(highestPrice);
       } catch (error) {
         console.error("Error fetching cards:", error);
       }
@@ -29,7 +28,6 @@ function Expenses() {
     fetchCards();
   }, []);
 
-  // Filter cards based on the selected price
   const filteredCards = cards.filter(
       (item) =>
           (item.cardmarket?.prices?.averageSellPrice || 0) <= selectedPrice

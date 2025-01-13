@@ -6,7 +6,6 @@ function CartPage() {
   const [cartItems, setCartItems] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
 
-  // Fetch cards from Firebase
   const fetchCardsFromFirebase = async () => {
     try {
       const dbRef = ref(database, "cart");
@@ -28,13 +27,11 @@ function CartPage() {
     }
   };
 
-  // Remove card from Firebase
   const removeFromCart = async (cardName) => {
     try {
       const dbRef = ref(database, `cart/${cardName}`);
-      await remove(dbRef); // Remove the card from Firebase
+      await remove(dbRef);
       console.log(`${cardName} removed from cart.`);
-      // Refresh the cart items
       fetchCardsFromFirebase();
     } catch (error) {
       console.error("Error removing card:", error);

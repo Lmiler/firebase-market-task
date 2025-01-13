@@ -16,20 +16,18 @@ function ExpenseItem(props) {
 
         try {
             const dbRef = ref(database, `cart/${card.name}`);
-            // Read current count of the card
             get(dbRef).then((snapshot) => {
                 if (snapshot.exists()) {
                     const existingCard = snapshot.val();
                     const updatedCard = {
                         ...existingCard,
-                        count: existingCard.count + 1, // Increment the count
+                        count: existingCard.count + 1,
                     };
                     set(dbRef, updatedCard).then(() => {
                         console.log(`${card.name} count incremented!`);
                         alert(`${card.name} added to your cart again!`);
                     });
                 } else {
-                    // Add new card with a count of 1
                     const newCard = { ...card, count: 1 };
                     set(dbRef, newCard).then(() => {
                         console.log(`${card.name} added to cart!`);
@@ -41,9 +39,6 @@ function ExpenseItem(props) {
             console.error("Error adding product to cart:", error);
         }
     };
-
-
-
 
 
   return (
